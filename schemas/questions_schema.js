@@ -1,0 +1,33 @@
+db.createCollection("questions", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["id", "level", "instruction", "correctAnswer", "explanation_success", "explanation_error"],
+            properties: {
+                id: { bsonType: "number" },
+                level: { enum: ["Facile", "Moyen", "Difficile", "Expert"] },
+                type_question: {
+                    enum: ["qcm", "text"],
+                    description: "Mode d'affichage (boutons ou terminal)"
+                },
+                operation: {
+                    enum: ["find", "insert", "update", "delete", "aggregate"],
+                    description: "L'action CRUD réelle à lancer sur la base"
+                },
+                target_collection: {
+                    bsonType: "string",
+                    description: "La collection visée par la requête, ex: 'media'"
+                },
+                instruction: { bsonType: "string" },
+                choices: {
+                    bsonType: "array",
+                    maxItems: 4,
+                    items: { bsonType: "string" }
+                },
+                correctAnswer: { bsonType: "string" },
+                explanation_success: { bsonType: "string" },
+                explanation_error: { bsonType: "string" }
+            }
+        }
+    }
+});

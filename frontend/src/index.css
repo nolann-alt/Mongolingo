@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+/* Cache la barre sur Firefox */
+.custom-scrollbar {
+    scrollbar-width: none;
+}
+
+/* Cache la barre sur Chrome, Edge et Safari */
+.custom-scrollbar::-webkit-scrollbar {
+    display: none;
+}

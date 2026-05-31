@@ -1,0 +1,606 @@
+[
+  {
+    "id": 1,
+    "level": "Facile",
+    "type_question": "qcm",
+    "operation": "find",
+    "target_collection": "media",
+    "instruction": "Trouve tous les documents dont le champ 'type' a pour valeur 'Movie'.",
+    "choices": [
+      "{ \"type\": \"Movie\" }",
+      "{ \"type\": Movie }",
+      "{ \"Movie\": \"type\" }",
+      "{ type: \"Movie\" }"
+    ],
+    "correctAnswer": "{ \"type\": \"Movie\" }",
+    "explanation_success": "Dans MongoDB, la recherche d'égalité parfaite est implicite. Le moteur scanne chaque document et garde ceux où le champ 'type' vaut la chaîne 'Movie'.",
+    "explanation_error": "Le nom du champ et la valeur (si c'est du texte) doivent avoir des guillemets doubles."
+  },
+  {
+    "id": 2,
+    "level": "Facile",
+    "type_question": "qcm",
+    "operation": "find",
+    "target_collection": "media",
+    "instruction": "Trouve tous les documents dont le champ 'type' a pour valeur 'Series'.",
+    "choices": [
+      "{ \"type\": \"series\" }",
+      "{ \"type\": \"Series\" }",
+      "{ \"Series\": true }",
+      "{ \"type\": [\"Series\"] }"
+    ],
+    "correctAnswer": "{ \"type\": \"Series\" }",
+    "explanation_success": "La requête est correcte ! MongoDB est strictement sensible à la casse (majuscules/minuscules).",
+    "explanation_error": "Attention à la casse ! Il faut chercher exactement \"Series\" avec une majuscule."
+  },
+  {
+    "id": 3,
+    "level": "Facile",
+    "type_question": "qcm",
+    "operation": "find",
+    "target_collection": "media",
+    "instruction": "Trouve le document dont le champ 'title' a pour valeur 'Inception'.",
+    "choices": [
+      "{ \"title\": Inception }",
+      "{ \"titre\": \"Inception\" }",
+      "{ \"title\": \"Inception\" }",
+      "{ \"name\": \"Inception\" }"
+    ],
+    "correctAnswer": "{ \"title\": \"Inception\" }",
+    "explanation_success": "Parfait. Tu as ciblé la bonne clé telle qu'elle est définie dans le schéma de la base.",
+    "explanation_error": "Il faut utiliser le nom exact du champ tel qu'il existe dans la base (\"title\"). N'oublie pas les guillemets."
+  },
+  {
+    "id": 4,
+    "level": "Facile",
+    "type_question": "qcm",
+    "operation": "find",
+    "target_collection": "media",
+    "instruction": "Trouve les documents dont le champ 'year' a pour valeur 2019.",
+    "choices": [
+      "{ \"year\": \"2019\" }",
+      "{ \"year\": 2019 }",
+      "{ \"date\": 2019 }",
+      "{ 2019: \"year\" }"
+    ],
+    "correctAnswer": "{ \"year\": 2019 }",
+    "explanation_success": "C'est exact ! L'année 2019 est stockée sous forme de nombre entier, donc elle s'écrit sans guillemets.",
+    "explanation_error": "Le typage est crucial en NoSQL. Si tu écris \"2019\" (avec guillemets), MongoDB cherche du texte, pas un nombre."
+  },
+  {
+    "id": 5,
+    "level": "Facile",
+    "type_question": "qcm",
+    "operation": "find",
+    "target_collection": "media",
+    "instruction": "Trouve les documents dont le champ 'director' a pour valeur 'Christopher Nolan'.",
+    "choices": [
+      "{ \"director\": \"Christopher Nolan\" }",
+      "{ \"director\": { \"$eq\": \"Christopher Nolan\" } }",
+      "{ \"Christopher Nolan\": \"director\" }",
+      "{ \"realisateur\": \"Christopher Nolan\" }"
+    ],
+    "correctAnswer": "{ \"director\": \"Christopher Nolan\" }",
+    "explanation_success": "Excellente requête. L'égalité simple est toujours privilégiée en MongoDB pour des raisons de lisibilité.",
+    "explanation_error": "Pour une simple recherche d'égalité, il suffit de mettre la clé suivie de sa valeur : { \"director\": \"Christopher Nolan\" }."
+  },
+  {
+    "id": 6,
+    "level": "Facile",
+    "type_question": "qcm",
+    "operation": "find",
+    "target_collection": "media",
+    "instruction": "Trouve les documents sortis après 2015 (inclus) en utilisant le champ 'year'.",
+    "choices": [
+      "{ \"year\": { \"$gt\": 2015 } }",
+      "{ \"year\": { \"$lte\": 2015 } }",
+      "{ \"year\": { \"$gte\": 2015 } }",
+      "{ \"year\": \">= 2015\" }"
+    ],
+    "correctAnswer": "{ \"year\": { \"$gte\": 2015 } }",
+    "explanation_success": "Parfait. L'opérateur $gte (Greater Than or Equal) est l'équivalent parfait de '>='.",
+    "explanation_error": "On ne peut pas utiliser les symboles mathématiques usuels (>=). L'opérateur BSON pour 'Supérieur ou Égal' est $gte."
+  },
+  {
+    "id": 7,
+    "level": "Facile",
+    "type_question": "qcm",
+    "operation": "find",
+    "target_collection": "media",
+    "instruction": "Trouve les documents dont le champ 'rating' est strictement supérieur à 9.",
+    "choices": [
+      "{ \"rating\": { \"$gte\": 9 } }",
+      "{ \"rating\": { \"$gt\": 9 } }",
+      "{ \"rating\": \"$gt 9\" }",
+      "{ \"rating\": { \">\": 9 } }"
+    ],
+    "correctAnswer": "{ \"rating\": { \"$gt\": 9 } }",
+    "explanation_success": "Excellent. L'opérateur $gt (Greater Than) permet de filtrer strictement au-dessus de la valeur.",
+    "explanation_error": "Pour 'strictement supérieur', c'est l'opérateur $gt. L'opérateur $gte inclurait la note 9."
+  },
+  {
+    "id": 8,
+    "level": "Facile",
+    "type_question": "qcm",
+    "operation": "find",
+    "target_collection": "media",
+    "instruction": "Trouve les documents dont le champ 'rating' est inférieur ou égal à 4.",
+    "choices": [
+      "{ \"rating\": { \"$lt\": 4 } }",
+      "{ \"rating\": { \"$eq\": 4 } }",
+      "{ \"rating\": { \"$lte\": 4 } }",
+      "{ \"rating\": \"<= 4\" }"
+    ],
+    "correctAnswer": "{ \"rating\": { \"$lte\": 4 } }",
+    "explanation_success": "Très bien. L'opérateur $lte (Less Than or Equal) permet d'inclure la borne.",
+    "explanation_error": "L'équivalent logique de '<=' est l'opérateur $lte (Less Than or Equal)."
+  },
+  {
+    "id": 9,
+    "level": "Facile",
+    "type_question": "qcm",
+    "operation": "insert",
+    "target_collection": "media",
+    "instruction": "Opération CRUD : Insère un document avec pour 'title' la valeur 'Interstellar', 'year' 2014, 'type' 'Movie' et 'director' 'Christopher Nolan'.",
+    "choices": [
+      "{ \"$insert\": { \"title\": \"Interstellar\", \"year\": 2014, \"type\": \"Movie\", \"director\": \"Christopher Nolan\" } }",
+      "{ \"title\": \"Interstellar\", \"year\": 2014, \"type\": \"Movie\", \"director\": \"Christopher Nolan\" }",
+      "{ \"document\": { \"title\": \"Interstellar\", \"year\": 2014, \"type\": \"Movie\", \"director\": \"Christopher Nolan\" } }",
+      "[\"Interstellar\", 2014, \"Movie\", \"Christopher Nolan\"]"
+    ],
+    "correctAnswer": "{ \"title\": \"Interstellar\", \"year\": 2014, \"type\": \"Movie\", \"director\": \"Christopher Nolan\" }",
+    "explanation_success": "Exactement ! Pour une insertion, on fournit simplement l'objet JSON complet. Pas besoin d'opérateur spécial.",
+    "explanation_error": "Une insertion attend simplement un objet JSON pur. Il ne faut pas encapsuler la donnée dans un opérateur $insert factice."
+  },
+  {
+    "id": 10,
+    "level": "Facile",
+    "type_question": "qcm",
+    "operation": "delete",
+    "target_collection": "media",
+    "instruction": "Suite à l'insertion précédente : Supprime le document dont le champ 'title' a pour valeur 'Interstellar'.",
+    "choices": [
+      "{ \"title\": \"Interstellar\" }",
+      "{ \"$delete\": { \"title\": \"Interstellar\" } }",
+      "{ \"query\": { \"title\": \"Interstellar\" } }",
+      "\"Interstellar\""
+    ],
+    "correctAnswer": "{ \"title\": \"Interstellar\" }",
+    "explanation_success": "Parfait. Une opération de suppression prend comme argument un filtre de recherche, exactement comme une lecture.",
+    "explanation_error": "L'argument attendu pour une suppression est un filtre de recherche classique : { \"title\": \"Interstellar\" }."
+  },
+  {
+    "id": 11,
+    "level": "Moyen",
+    "type_question": "qcm",
+    "operation": "find",
+    "target_collection": "media",
+    "instruction": "Trouve les documents disponibles sur Netflix en utilisant le champ imbriqué 'availability.netflix'.",
+    "choices": [
+      "{ \"availability.netflix\": true }",
+      "{ \"availability\": \"netflix\" }",
+      "{ \"netflix\": true }",
+      "{ \"availability\": { \"netflix\": true } }"
+    ],
+    "correctAnswer": "{ \"availability.netflix\": true }",
+    "explanation_success": "Superbe utilisation de la notation pointée (Dot Notation) pour naviguer dans un objet imbriqué.",
+    "explanation_error": "Il faut cibler le champ imbriqué avec un point : \"availability.netflix\"."
+  },
+  {
+    "id": 12,
+    "level": "Moyen",
+    "type_question": "qcm",
+    "operation": "find",
+    "target_collection": "media",
+    "instruction": "Trouve les documents disponibles sur Prime Video en utilisant le champ imbriqué 'availability.prime'.",
+    "choices": [
+      "{ \"availability.prime\": true }",
+      "{ \"prime\": true }",
+      "{ \"availability\": [\"prime\"] }",
+      "{ \"availability\": { \"prime\": true } }"
+    ],
+    "correctAnswer": "{ \"availability.prime\": true }",
+    "explanation_success": "C'est validé. La notation pointée protège les autres clés de l'objet (comme netflix ou disney).",
+    "explanation_error": "Comme pour Netflix, on utilise le point pour naviguer dans l'objet : \"availability.prime\"."
+  },
+  {
+    "id": 13,
+    "level": "Moyen",
+    "type_question": "qcm",
+    "operation": "find",
+    "target_collection": "media",
+    "instruction": "Trouve les documents dont le tableau 'genres' contient la valeur 'Documentary'.",
+    "choices": [
+      "{ \"genres\": { \"$eq\": [\"Documentary\"] } }",
+      "{ \"genres\": \"Documentary\" }",
+      "{ \"genres.Documentary\": true }",
+      "{ \"type\": \"Documentary\" }"
+    ],
+    "correctAnswer": "{ \"genres\": \"Documentary\" }",
+    "explanation_success": "Pas besoin de syntaxe complexe. MongoDB déplie le tableau automatiquement pendant sa recherche.",
+    "explanation_error": "Chercher simplement { \"genres\": \"Documentary\" } est suffisant, même si le champ est un tableau."
+  },
+  {
+    "id": 14,
+    "level": "Moyen",
+    "type_question": "qcm",
+    "operation": "find",
+    "target_collection": "media",
+    "instruction": "Trouve les documents qui ne possèdent pas de champ 'cast'.",
+    "choices": [
+      "{ \"cast\": { \"$exists\": false } }",
+      "{ \"cast\": null }",
+      "{ \"cast\": [] }",
+      "{ \"cast\": { \"$ne\": true } }"
+    ],
+    "correctAnswer": "{ \"cast\": { \"$exists\": false } }",
+    "explanation_success": "Brillant. L'opérateur $exists permet d'interroger la structure du document, idéal dans une base orientée documents.",
+    "explanation_error": "Pour vérifier l'absence physique d'une clé, il faut utiliser l'opérateur structurel { \"$exists\": false }."
+  },
+  {
+    "id": 15,
+    "level": "Moyen",
+    "type_question": "qcm",
+    "operation": "find",
+    "target_collection": "media",
+    "instruction": "Trouve les documents qui possèdent le champ 'seasons'.",
+    "choices": [
+      "{ \"seasons\": { \"$exists\": true } }",
+      "{ \"seasons\": true }",
+      "{ \"seasons\": { \"$ne\": null } }",
+      "{ \"seasons\": \"*\" }"
+    ],
+    "correctAnswer": "{ \"seasons\": { \"$exists\": true } }",
+    "explanation_success": "C'est exact. L'opérateur $exists vérifie que la clé est bien présente dans la structure du document.",
+    "explanation_error": "La syntaxe officielle pour vérifier la présence d'un champ est { \"seasons\": { \"$exists\": true } }."
+  },
+  {
+    "id": 16,
+    "level": "Moyen",
+    "type_question": "qcm",
+    "operation": "find",
+    "target_collection": "media",
+    "instruction": "Trouve les documents dont le champ 'year' est compris entre 2010 et 2015 (inclus).",
+    "choices": [
+      "{ \"year\": { \"$gt\": 2010, \"$lt\": 2015 } }",
+      "{ \"year\": { \"between\": [2010, 2015] } }",
+      "{ \"year\": { \"$gte\": 2010, \"$lte\": 2015 } }",
+      "{ \"year\": 2010, \"year\": 2015 }"
+    ],
+    "correctAnswer": "{ \"year\": { \"$gte\": 2010, \"$lte\": 2015 } }",
+    "explanation_success": "Très pro ! On combine les opérateurs $gte et $lte dans le même sous-objet pour créer une fourchette.",
+    "explanation_error": "L'opérateur 'BETWEEN' n'existe pas. Il faut combiner $gte (>=) et $lte (<=) sur le même champ."
+  },
+  {
+    "id": 17,
+    "level": "Moyen",
+    "type_question": "qcm",
+    "operation": "find",
+    "target_collection": "media",
+    "instruction": "Trouve les documents où la valeur 'Leonardo DiCaprio' est présente dans le champ 'actor' au sein du tableau 'cast'.",
+    "choices": [
+      "{ \"cast.actor\": \"Leonardo DiCaprio\" }",
+      "{ \"cast\": { \"actor\": \"Leonardo DiCaprio\" } }",
+      "{ \"actor\": \"Leonardo DiCaprio\" }",
+      "{ \"cast\": [\"Leonardo DiCaprio\"] }"
+    ],
+    "correctAnswer": "{ \"cast.actor\": \"Leonardo DiCaprio\" }",
+    "explanation_success": "Bravo ! Tu as combiné la recherche dans un tableau et la notation pointée pour cibler une sous-propriété.",
+    "explanation_error": "On utilise la notation pointée 'cast.actor' pour fouiller la propriété des objets à l'intérieur du tableau."
+  },
+  {
+    "id": 18,
+    "level": "Moyen",
+    "type_question": "qcm",
+    "operation": "find",
+    "target_collection": "media",
+    "instruction": "Trouve les documents dont le champ imbriqué 'wins' (dans 'awards') est strictement supérieur à 10.",
+    "choices": [
+      "{ \"awards.wins\": { \"$gt\": 10 } }",
+      "{ \"awards\": { \"wins\": { \"$gt\": 10 } } }",
+      "{ \"wins\": { \"$gt\": 10 } }",
+      "{ \"awards.wins\": \"> 10\" }"
+    ],
+    "correctAnswer": "{ \"awards.wins\": { \"$gt\": 10 } }",
+    "explanation_success": "C'est parfait ! Tu as utilisé la notation pointée puis appliqué l'opérateur mathématique $gt.",
+    "explanation_error": "L'option avec les accolades imbriquées écraserait les autres champs. La notation pointée protège le reste de l'objet."
+  },
+  {
+    "id": 19,
+    "level": "Moyen",
+    "type_question": "qcm",
+    "operation": "find",
+    "target_collection": "media",
+    "instruction": "Trouve les documents dont le tableau 'genres' contient la valeur 'Action' ou 'Comedy'.",
+    "choices": [
+      "{ \"genres\": [\"Action\", \"Comedy\"] }",
+      "{ \"genres\": { \"$or\": [\"Action\", \"Comedy\"] } }",
+      "{ \"genres\": { \"$in\": [\"Action\", \"Comedy\"] } }",
+      "{ \"$or\": { \"genres\": \"Action\", \"genres\": \"Comedy\" } }"
+    ],
+    "correctAnswer": "{ \"genres\": { \"$in\": [\"Action\", \"Comedy\"] } }",
+    "explanation_success": "Excellent. L'opérateur $in est très performant pour vérifier si un champ correspond à une des valeurs d'une liste.",
+    "explanation_error": "L'opérateur idéal pour vérifier une liste de choix sur un même champ est $in."
+  },
+  {
+    "id": 20,
+    "level": "Moyen",
+    "type_question": "qcm",
+    "operation": "find",
+    "target_collection": "media",
+    "instruction": "Trouve les documents qui ont la valeur 'false' pour les champs 'availability.netflix' et 'availability.prime'.",
+    "choices": [
+      "{ \"$not\": { \"availability.netflix\": true, \"availability.prime\": true } }",
+      "{ \"availability.netflix\": false, \"availability.prime\": false }",
+      "{ \"availability\": { \"netflix\": false, \"prime\": false } }",
+      "{ \"availability\": { \"$nin\": [\"netflix\", \"prime\"] } }"
+    ],
+    "correctAnswer": "{ \"availability.netflix\": false, \"availability.prime\": false }",
+    "explanation_success": "C'est juste ! L'opérateur logique AND est implicite quand on sépare les conditions par une simple virgule.",
+    "explanation_error": "Inutile de complexifier. Il suffit de demander que les deux champs soient à false en les séparant par une virgule."
+  },
+  {
+    "id": 21,
+    "level": "Difficile",
+    "type_question": "qcm",
+    "operation": "find",
+    "target_collection": "media",
+    "instruction": "Trouve les documents qui possèdent au moins 3 éléments dans le tableau 'seasons'.",
+    "choices": [
+      "{ \"seasons.3\": { \"$exists\": true } }",
+      "{ \"seasons\": { \"$size\": 3 } }",
+      "{ \"seasons.2\": { \"$exists\": true } }",
+      "{ \"seasons\": { \"$gt\": 3 } }"
+    ],
+    "correctAnswer": "{ \"seasons.2\": { \"$exists\": true } }",
+    "explanation_success": "Très malin ! Les index de tableaux commencent à 0. S'assurer de l'existence du 3ème élément revient à chercher l'index 2.",
+    "explanation_error": "Pour vérifier 'au moins 3', on cherche si l'index 2 existe avec la notation pointée : 'seasons.2'."
+  },
+  {
+    "id": 22,
+    "level": "Difficile",
+    "type_question": "qcm",
+    "operation": "find",
+    "target_collection": "media",
+    "instruction": "Trouve les documents dont le tableau 'genres' contient obligatoirement les valeurs 'Drama' et 'Romance'.",
+    "choices": [
+      "{ \"genres\": { \"$all\": [\"Drama\", \"Romance\"] } }",
+      "{ \"genres\": { \"$in\": [\"Drama\", \"Romance\"] } }",
+      "{ \"genres\": [\"Drama\", \"Romance\"] }",
+      "{ \"genres\": \"Drama\", \"genres\": \"Romance\" }"
+    ],
+    "correctAnswer": "{ \"genres\": { \"$all\": [\"Drama\", \"Romance\"] } }",
+    "explanation_success": "Niveau expert validé ! L'opérateur $all permet de s'assurer qu'un tableau contient la totalité des éléments fournis.",
+    "explanation_error": "L'opérateur $in agit comme un OU. Pour imposer la présence de tous les éléments, il faut utiliser l'opérateur $all."
+  },
+  {
+    "id": 23,
+    "level": "Difficile",
+    "type_question": "qcm",
+    "operation": "find",
+    "target_collection": "media",
+    "instruction": "Trouve les documents qui satisfont soit 'type' à 'Movie' ET 'year' à 1999, soit 'type' à 'Series' ET 'year' à 2019.",
+    "choices": [
+      "{ \"type\": \"Movie\", \"year\": 1999, \"$or\": { \"type\": \"Series\", \"year\": 2019 } }",
+      "{ \"$or\": [ { \"type\": \"Movie\", \"year\": 1999 }, { \"type\": \"Series\", \"year\": 2019 } ] }",
+      "{ \"type\": { \"$in\": [\"Movie\", \"Series\"] }, \"year\": { \"$in\": [1999, 2019] } }",
+      "{ \"$or\": [ \"Movie 1999\", \"Series 2019\" ] }"
+    ],
+    "correctAnswer": "{ \"$or\": [ { \"type\": \"Movie\", \"year\": 1999 }, { \"type\": \"Series\", \"year\": 2019 } ] }",
+    "explanation_success": "Parfait ! L'opérateur $or se place à la racine et prend un tableau d'objets où chaque objet représente une condition complète.",
+    "explanation_error": "L'opérateur $or prend un tableau contenant tes différentes conditions sous forme d'objets complets."
+  },
+  {
+    "id": 24,
+    "level": "Difficile",
+    "type_question": "qcm",
+    "operation": "find",
+    "target_collection": "media",
+    "instruction": "Trouve les documents où le tableau 'cast' contient un objet ayant exactement 'Chris Evans' pour 'actor' ET 'Captain America' pour 'role'.",
+    "choices": [
+      "{ \"cast.actor\": \"Chris Evans\", \"cast.role\": \"Captain America\" }",
+      "{ \"cast\": { \"actor\": \"Chris Evans\", \"role\": \"Captain America\" } }",
+      "{ \"cast\": { \"$elemMatch\": { \"actor\": \"Chris Evans\", \"role\": \"Captain America\" } } }",
+      "{ \"cast\": [ { \"actor\": \"Chris Evans\", \"role\": \"Captain America\" } ] }"
+    ],
+    "correctAnswer": "{ \"cast\": { \"$elemMatch\": { \"actor\": \"Chris Evans\", \"role\": \"Captain America\" } } }",
+    "explanation_success": "Masterclass ! L'opérateur $elemMatch force MongoDB à vérifier les deux conditions sur le MÊME objet du tableau.",
+    "explanation_error": "Si tu cherches les clés séparément, MongoDB pourrait valider un document où l'acteur est présent dans un objet et le rôle dans un autre. Utilise $elemMatch."
+  },
+  {
+    "id": 25,
+    "level": "Difficile",
+    "type_question": "qcm",
+    "operation": "find",
+    "target_collection": "media",
+    "instruction": "Trouve les documents dont le champ 'title' commence par la chaîne 'The' en utilisant une expression régulière.",
+    "choices": [
+      "{ \"title\": \"The*\" }",
+      "{ \"title\": { \"$regex\": \"^The\" } }",
+      "{ \"title\": { \"$regex\": \"The$\" } }",
+      "{ \"title\": { \"$starts\": \"The\" } }"
+    ],
+    "correctAnswer": "{ \"title\": { \"$regex\": \"^The\" } }",
+    "explanation_success": "Impressionnant ! Le moteur utilise les Regex classiques. L'accent circonflexe (^) indique toujours le début de la chaîne.",
+    "explanation_error": "Les jokers SQL comme l'étoile (*) ne fonctionnent pas. L'opérateur est $regex et l'accent circonflexe (^) signifie 'commence par'."
+  },
+  {
+    "id": 26,
+    "level": "Difficile",
+    "type_question": "qcm",
+    "operation": "update",
+    "target_collection": "media",
+    "instruction": "Opération de mise à jour : Rédige le document de modification pour ajouter le champ 'remastered' à 'true' ET incrémenter le champ 'awards.wins' de 1.",
+    "choices": [
+      "{ \"$set\": { \"remastered\": true }, \"$inc\": { \"awards.wins\": 1 } }",
+      "{ \"$update\": { \"remastered\": true, \"awards.wins\": \"+1\" } }",
+      "{ \"remastered\": true, \"awards.wins\": 1 }",
+      "{ \"$set\": { \"remastered\": true, \"awards.wins\": 1 } }"
+    ],
+    "correctAnswer": "{ \"$set\": { \"remastered\": true }, \"$inc\": { \"awards.wins\": 1 } }",
+    "explanation_success": "Excellent ! Tu peux combiner plusieurs opérateurs de modification dans une seule requête d'update.",
+    "explanation_error": "Il faut combiner les opérateurs. L'opérateur $set ajoute un champ, tandis que $inc s'occupe de l'addition mathématique."
+  },
+  {
+    "id": 27,
+    "level": "Difficile",
+    "type_question": "qcm",
+    "operation": "aggregate",
+    "target_collection": "media",
+    "instruction": "Agrégation : Écris le pipeline pour conserver les documents sortis après 2010, puis regroupe-les par 'director' en comptant leur nombre dans un champ 'nbFilms'.",
+    "choices": [
+
+      "[ { \"$group\": { \"_id\": \"$director\" } }, { \"$match\": { \"year\": { \"$gt\": 2010 } } } ]",
+      "[ { \"$filter\": { \"year\": \"> 2010\" } }, { \"$count\": \"$director\" } ]",
+      "[ { \"$match\": { \"year\": { \"$gt\": 2010 } } }, { \"$group\": { \"_id\": \"$director\", \"nbFilms\": { \"$sum\": 1 } } } ]",
+      "[ { \"$match\": { \"year\": 2010 } }, { \"$sum\": \"$director\" } ]"
+    ],
+    "correctAnswer": "[ { \"$match\": { \"year\": { \"$gt\": 2010 } } }, { \"$group\": { \"_id\": \"$director\", \"nbFilms\": { \"$sum\": 1 } } } ]",
+    "explanation_success": "C'est la base de l'agrégation ! Le pipeline filtre d'abord avec $match pour les performances, puis regroupe avec $group sur la clé $director.",
+    "explanation_error": "L'ordre compte : on filtre d'abord avec $match, puis on regroupe avec l'étape $group (qui nécessite un champ obligatoire _id)."
+  },
+  {
+    "id": 28,
+    "level": "Difficile",
+    "type_question": "qcm",
+    "operation": "aggregate",
+    "target_collection": "media",
+    "instruction": "Agrégation : Écris le pipeline pour exploser le tableau 'genres' et créer un document par élément, puis ne conserver que les documents ayant le genre 'Action'.",
+    "choices": [
+      "[ { \"$explode\": \"$genres\" }, { \"$filter\": \"Action\" } ]",
+      "[ { \"$unwind\": \"$genres\" }, { \"$match\": { \"genres\": \"Action\" } } ]",
+      "[ { \"$match\": { \"genres\": \"Action\" } }, { \"$unwind\": \"$genres\" } ]",
+      "[ { \"$split\": \"$genres\" }, { \"$match\": { \"genres\": \"Action\" } } ]"
+    ],
+    "correctAnswer": "[ { \"$unwind\": \"$genres\" }, { \"$match\": { \"genres\": \"Action\" } } ]",
+    "explanation_success": "L'opérateur $unwind génère autant de clones du document qu'il y a d'éléments dans le tableau, permettant ensuite un $match simple.",
+    "explanation_error": "L'opérateur officiel pour aplatir un tableau est $unwind. L'étape $match vient ensuite pour filtrer les résultats générés."
+  },
+  {
+    "id": 29,
+    "level": "Difficile",
+    "type_question": "qcm",
+    "operation": "aggregate",
+    "target_collection": "media",
+    "instruction": "Agrégation : Écris le pipeline pour effectuer une jointure avec la collection 'directors', en liant le champ local 'director_id' au champ '_id' externe.",
+    "choices": [
+      "[ { \"$lookup\": { \"from\": \"directors\", \"localField\": \"director_id\", \"foreignField\": \"_id\", \"as\": \"details\" } } ]",
+      "[ { \"$join\": { \"table\": \"directors\", \"on\": \"director_id\" } } ]",
+      "[ { \"$lookup\": { \"collection\": \"directors\", \"match\": \"director_id\" } } ]",
+      "[ { \"$populate\": \"director_id\" } ]"
+    ],
+    "correctAnswer": "[ { \"$lookup\": { \"from\": \"directors\", \"localField\": \"director_id\", \"foreignField\": \"_id\", \"as\": \"details\" } } ]",
+    "explanation_success": "L'étape $lookup est l'équivalent du LEFT OUTER JOIN en SQL. Elle rassemble les données et les place dans le tableau de sortie défini par 'as'.",
+    "explanation_error": "Les jointures se font avec l'étape $lookup, qui nécessite de définir la collection cible (from), la clé locale, la clé étrangère, et le nom du tableau de sortie (as)."
+  },
+  {
+    "id": 30,
+    "level": "Difficile",
+    "type_question": "text",
+    "operation": "aggregate",
+    "target_collection": "media",
+    "instruction": "Terminal : Rédige un pipeline d'agrégation (un tableau) contenant l'étape pour trier les documents générés selon le champ 'nbFilms' par ordre décroissant.",
+    "correctAnswer": "[ { \"$sort\": { \"nbFilms\": -1 } } ]",
+    "explanation_success": "Parfait ! L'étape $sort est bien formatée et placée dans un tableau []. Le -1 indique bien l'ordre décroissant (du plus grand au plus petit).",
+    "explanation_error": "L'étape s'écrit { \"$sort\": { \"champ\": -1 } }. N'oublie pas que tout pipeline d'agrégation doit obligatoirement être encapsulé dans un tableau []."
+  },
+  {
+    "id": 31,
+    "level": "Expert",
+    "type_question": "text",
+    "operation": "find",
+    "target_collection": "media",
+    "instruction": "Terminal : Rédige une requête pour trouver les documents réalisés par 'James Cameron' (champ 'director').",
+    "correctAnswer": "{ \"director\": \"James Cameron\" }",
+    "explanation_success": "Parfait. C'est la base de la recherche en NoSQL !",
+    "explanation_error": "Il suffit de faire une égalité simple sur le champ 'director'. N'oublie pas les guillemets anglais (\")."
+  },
+  {
+    "id": 32,
+    "level": "Expert",
+    "type_question": "text",
+    "operation": "find",
+    "target_collection": "media",
+    "instruction": "Terminal : Rédige une requête pour trouver les documents dont le champ 'rating' est supérieur ou égal à 9.",
+    "correctAnswer": "{ \"rating\": { \"$gte\": 9 } }",
+    "explanation_success": "Excellent ! L'opérateur $gte est parfaitement maîtrisé en saisie libre.",
+    "explanation_error": "Il faut utiliser un sous-document avec l'opérateur $gte. Rappel : { \"champ\": { \"$opérateur\": valeur } }."
+  },
+  {
+    "id": 33,
+    "level": "Expert",
+    "type_question": "text",
+    "operation": "find",
+    "target_collection": "media",
+    "instruction": "Terminal : Trouve les documents qui sont disponibles sur le service Disney (utilise le champ imbriqué 'availability.disney').",
+    "correctAnswer": "{ \"availability.disney\": true }",
+    "explanation_success": "Notation pointée (Dot Notation) réussie du premier coup !",
+    "explanation_error": "La notation pointée nécessite des guillemets autour du chemin complet : \"availability.disney\"."
+  },
+  {
+    "id": 34,
+    "level": "Expert",
+    "type_question": "text",
+    "operation": "insert",
+    "target_collection": "media",
+    "instruction": "Terminal (Scénario 1/3) : Insère un nouveau document. Son 'title' est 'Avatar', son 'year' est 2009, son 'type' est 'Movie' et son 'director' est 'James Cameron'.",
+    "correctAnswer": "{ \"title\": \"Avatar\", \"year\": 2009, \"type\": \"Movie\", \"director\": \"James Cameron\" }",
+    "explanation_success": "Le document a bien été injecté dans la base de données !",
+    "explanation_error": "Attention, tu dois respecter les 4 champs obligatoires de la collection : title, year (un nombre entier), type et director."
+  },
+  {
+    "id": 35,
+    "level": "Expert",
+    "type_question": "text",
+    "operation": "find",
+    "target_collection": "media",
+    "instruction": "Terminal (Scénario 2/3) : Vérifions ton insertion. Fais une requête pour trouver le document dont le champ 'title' a pour valeur 'Avatar'.",
+    "correctAnswer": "{ \"title\": \"Avatar\" }",
+    "explanation_success": "Génial ! Tu peux voir dans la console en bas que MongoDB a bien trouvé le document que tu viens tout juste de créer !",
+    "explanation_error": "Fais une simple recherche d'égalité sur le champ 'title'."
+  },
+  {
+    "id": 36,
+    "level": "Expert",
+    "type_question": "text",
+    "operation": "delete",
+    "target_collection": "media",
+    "instruction": "Terminal (Scénario 3/3) : Nettoyons la base. Supprime le document dont le champ 'title' a pour valeur 'Avatar'.",
+    "correctAnswer": "{ \"title\": \"Avatar\" }",
+    "explanation_success": "Base de données nettoyée ! Tu viens d'accomplir un cycle complet de manipulation de données.",
+    "explanation_error": "L'opération de suppression attend simplement le filtre de recherche du document à supprimer."
+  },
+  {
+    "id": 37,
+    "level": "Expert",
+    "type_question": "text",
+    "operation": "aggregate",
+    "target_collection": "media",
+    "instruction": "Terminal : Rédige un pipeline d'agrégation (un tableau) avec une seule étape $match pour ne garder que les documents de type 'Series'.",
+    "correctAnswer": "[ { \"$match\": { \"type\": \"Series\" } } ]",
+    "explanation_success": "Le pipeline est correctement initialisé avec ses crochets [].",
+    "explanation_error": "Un pipeline d'agrégation doit TOUJOURS être un tableau (entouré de crochets [])."
+  },
+  {
+    "id": 38,
+    "level": "Expert",
+    "type_question": "text",
+    "operation": "aggregate",
+    "target_collection": "media",
+    "instruction": "Terminal : Rédige un pipeline avec une étape $unwind pour séparer le tableau contenu dans le champ 'genres'.",
+    "correctAnswer": "[ { \"$unwind\": \"$genres\" } ]",
+    "explanation_success": "Parfait, le tableau 'genres' est explosé. N'oublie pas le symbole '$' devant le nom du champ !",
+    "explanation_error": "L'opérateur $unwind prend en paramètre le nom du champ précédé d'un dollar (ex: \"$genres\")."
+  },
+  {
+    "id": 39,
+    "level": "Expert",
+    "type_question": "text",
+    "operation": "aggregate",
+    "target_collection": "media",
+    "instruction": "Terminal : Rédige un pipeline pour trier l'étape $sort selon le champ 'year' de façon décroissante (du plus récent au plus ancien).",
+    "correctAnswer": "[ { \"$sort\": { \"year\": -1 } } ]",
+    "explanation_success": "Bravo ! En BSON, l'ordre décroissant s'exprime par le chiffre -1.",
+    "explanation_error": "L'étape s'écrit { \"$sort\": { \"champ\": -1 } }. Le tout est encapsulé dans un tableau []."
+  }
+]
